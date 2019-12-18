@@ -6,6 +6,7 @@ info:
     name: ChainId
     url: Chainid.io
     email: indo@chainid.io
+  description: ''
 servers:
   - url: 'http://localhost:3000'
 paths: {}
@@ -17,9 +18,132 @@ components:
       properties:
         id:
           type: string
-        firstName:
+        person:
+          $ref: '#/components/schemas/Person'
+        email:
           type: string
-        lastName:
+        '':
           type: string
+      description: |
+        User and credentials
+    Person:
+      title: Person
+      type: object
+      properties:
+        id:
+          type: string
+        logDateAdded:
+          type: string
+        '':
+          type: string
+    Attribute:
+      title: Attribute
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        default:
+          type:
+            - boolean
+            - 'null'
+        levelOfAssurance:
+          type: string
+          description: |-
+            See NIST standard on LOA.
+
+            Reverse process of the consent, where a "company" provides attributes of a specific level of assurance to a person.
+        levelOfAssuranceCompanyProfile:
+          $ref: '#/components/schemas/CompanyProfile'
+        '':
+          type: string
+    AttributeType:
+      title: AttributeType
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        '':
+          type: string
+    Company:
+      title: Campany
+      type: object
+      properties:
+        id:
+          type: string
+    UserCompany:
+      title: UserCompany
+      type: object
+      properties:
+        id:
+          type: string
+    CompanyProfile:
+      title: CompanyProfile
+      type: object
+      description: |
+        Data requested by Company
+      properties:
+        id:
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+        '':
+          type: string
+    DataXChange:
+      title: DataXChange
+      type: object
+      properties:
+        id:
+          type: string
+        person:
+          $ref: '#/components/schemas/Person'
+        companyProfile:
+          $ref: '#/components/schemas/CompanyProfile'
+        logDateAdded:
+          type: string
+        expiryDate:
+          type:
+            - string
+            - 'null'
+        revokationDate:
+          type:
+            - string
+            - 'null'
+        '':
+          type: string
+    AttributeDataXChange:
+      title: AttributeDataXChange
+      type: object
+      properties:
+        id:
+          type: string
+        dataxchange:
+          $ref: '#/components/schemas/DataXChange'
+        attribute:
+          $ref: '#/components/schemas/Attribute'
+        attributeProfileType:
+          $ref: '#/components/schemas/AttributeProfileType'
+        '':
+          type: string
+    AttributeProfileType:
+      title: AttributeProfileType
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          $ref: '#/components/schemas/CompanyProfile'
+        attributeType:
+          $ref: '#/components/schemas/AttributeType'
+        isOptional:
+          type: integer
+          description: There is more than a binary case.
         '':
           type: string
