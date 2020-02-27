@@ -6,9 +6,9 @@ info:
     name: ChainId
     url: Chainid.io
     email: indo@chainid.io
-  description: ''
+  description: Data Model for the chain id project
 servers:
-  - url: 'http://localhost:3000'
+  - url: api.chainid.io
 paths: {}
 components:
   schemas:
