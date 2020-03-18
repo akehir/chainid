@@ -117,6 +117,7 @@ components:
     DataXChange:
       title: DataXChange
       type: object
+      description: ''
       properties:
         id:
           type: string
@@ -127,16 +128,14 @@ components:
         logDateAdded:
           type: string
         expiryDate:
-          type:
-            - string
-            - 'null'
+          type: string
         revokationDate:
-          type:
-            - string
-            - 'null'
+          type: string
       required:
         - id
-      description: ''
+        - person
+        - companyProfile
+        - logDateAdded
     AttributeDataXChange:
       title: AttributeDataXChange
       type: object
@@ -154,6 +153,7 @@ components:
         - dataxchange
         - attribute
         - companyProfileAttributeType
+      description: What the user chooses to share from his/her attributes for a data exchange requested by any company by matching with the company profile.
     CompanyProfileAttributeType:
       title: CompanyProfileAttributeType
       type: object
