@@ -49,17 +49,14 @@ components:
         attributeType:
           $ref: '#/components/schemas/AttributeType'
         levelOfAssurance:
-          type: string
-          description: |-
-            See NIST standard on LOA.
-
-            Reverse process of the consent, where a "company" provides attributes of a specific level of assurance to a person.
+          $ref: '#/components/schemas/LevelOfAssurance'
         person:
           $ref: '#/components/schemas/Person'
       required:
         - id
         - value
         - attributeType
+        - levelOfAssurance
         - person
     AttributeType:
       title: AttributeType
@@ -74,14 +71,21 @@ components:
       required:
         - id
         - label
+      description: 'The type of any given attribute, for instance "name", "dateOfBirth", etc.'
     Company:
       title: Company
       type: object
+      description: 'The participating company which can request information from persons through a data exchange. In OpenID context, also known as relying party / RP.'
       properties:
         id:
           type: string
+        name:
+          type: string
+        vat:
+          type: string
       required:
         - id
+        - name
     PersonCompany:
       title: PersonCompany
       type: object
@@ -143,17 +147,17 @@ components:
           $ref: '#/components/schemas/DataXChange'
         attribute:
           $ref: '#/components/schemas/Attribute'
-        attributeProfileType:
-          $ref: '#/components/schemas/AttributeProfileType'
+        companyProfileAttributeType:
+          $ref: '#/components/schemas/CompanyProfileAttributeType'
       required:
         - id
         - dataxchange
         - attribute
-        - attributeProfileType
+        - companyProfileAttributeType
     CompanyProfileAttributeType:
       title: CompanyProfileAttributeType
       type: object
-      description: ''
+      description: The attribute type requested by a company for a (potential) data exchange.
       properties:
         id:
           type: string
@@ -162,10 +166,29 @@ components:
         attributeType:
           $ref: '#/components/schemas/AttributeType'
         isOptional:
-          type: integer
-          description: There is more than a binary case.
+          type: boolean
+          description: ''
+        levelOfAssuranceRequired:
+          $ref: '#/components/schemas/LevelOfAssurance'
       required:
         - id
         - profile
         - attributeType
+        - isOptional
+        - levelOfAssuranceRequired
+    LevelOfAssurance:
+      title: LevelOfAssurance
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ''
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+      description: "The level of assurance being requested or provided. ID is an integer since it's an enum, and you can specify that you need at least a level of assurance of {x}, where higher provided LoA's would still be ok."
   securitySchemes: {}
