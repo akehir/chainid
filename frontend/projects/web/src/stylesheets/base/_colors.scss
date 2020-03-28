@@ -1,0 +1,149 @@
+// color names mostly based on http://chir.ag/projects/name-that-color/
+
+// base
+$color-white: #fff;
+$color-black: #1d1d1d;
+$color-black-true: #000;
+
+// Graytones
+$color-gray: #8c8c8c;
+$color-gray-gallery: #f0f0f0;
+
+// Shadows
+$color-shadow: rgba($color-black, 0.3);
+$color-shadow-light: rgba($color-black, 0.2);
+$color-shadow-lighter: rgba($color-black, 0.1);
+$color-shadow-white: rgba($color-white, 0.5);
+$color-shadow-whiter: rgba($color-white, 0.3);
+$color-shadow-overlay: rgba($color-black, 0.65);
+
+// akehir: Logo
+$color-akehir-cyan: #13abc8;
+$color-akehir-blue: #3d51ec;
+$color-akehir-red: #fa2030;
+$color-akehir-yellow: #f7fa51;
+$color-akehir-black: #0e0e0e;
+
+// Tempest: circle
+$color-tempest-circle-violet: #78338e;
+$color-tempest-circle-green: #5daa43;
+$color-tempest-circle-yellow: #f0eb3a;
+$color-tempest-circle-orange: #ec921f;
+$color-tempest-circle-red: #ee2e26;
+
+// Tempest: elements
+$color-tempest-elements-red-wine: #a71d4c;
+$color-tempest-elements-blue-marine: #3b5ca8;
+$color-tempest-elements-blue-sky: #1b92cf;
+$color-tempest-elements-green: #5daa43;
+$color-tempest-elements-orange: #ec921f;
+
+// ethnologischer Verein Zurich
+$color-evzh-dark-red: #580000;
+$color-evzh-red: desaturate(lighten($color-evzh-dark-red, 5%), 20%);
+$color-evzh-blue: desaturate(lighten($color-tempest-elements-blue-marine, 15%), 5%);
+$color-evzh-light-red: #958888;
+$color-evzh-lighter-red: desaturate(lighten($color-evzh-light-red, 60%), 20%);
+$color-evzh-light-gray: #b2b2b2;
+$color-evzh-dark-gray: #3f3f3f;
+$color-evzh-black: #0e0e0e;
+
+// Travel for change
+$color-travel-full-blue: #00f;
+$color-travel-dark-blue: #000080;
+$color-travel-blue: #4a6a8a;
+$color-travel-light: #a6bfd9;
+$color-travel-black: #1d1d1d;
+
+// Sun
+$color-sun-yellow: #fbe115;
+$color-sun-golden: #f2cc18;
+$color-sun-orange: #ef8d13;
+$color-sun-red: #f00;
+$color-sun-black: #0e0e0e;
+
+// Redblue
+$color-redblue-background: #0970b2;
+$color-redblue-highlight: #b21212;
+$color-redblue-center: #fffc19;
+$color-redblue-basis: #1485cc;
+$color-redblue-contrast: #f00;
+
+// Intefo
+$color-intefo-blue-ultramarine: #00275b;
+$color-intefo-blue-marine: #022e5f;
+$color-intefo-blue: #47698d;
+$color-intefo-blue-gray: #99acbf;
+$color-intefo-blue-light: #eff2f3;
+
+// blues
+$color-blues-blue-dark: #00337f;
+$color-blues-blue-light: #4c94ff;
+$color-blues-blue: #06f;
+$color-blues-blue-marine: #23487f;
+$color-blues-blue-accent: #0052cc;
+
+// asuite
+$color-asuite-pink-dark: #b203a5;
+$color-asuite-yellow: #ffd738;
+$color-asuite-pink: #ff1eee;
+$color-asuite-turquoise: #04ccb7;
+$color-asuite-turquoise-dark: #0cb2a1;
+
+// abschied
+$color-abschied-red-dark: #cc4a14;
+$color-abschied-red-brown: #99583d;
+$color-abschied-red: #f00;
+$color-abschied-green: #40ff40;
+$color-abschied-green-dark: #54cc14;
+
+// brand
+$color-blue-lake: #00547a;
+$color-blue-sky: #00b6e8;
+$color-blue-stone: #9db0ba;
+
+// brand Gradients / Transpareny:
+$color-sky-very-opaque: #d9f3fd;
+$color-sky-opaque: #8cdaf8;
+
+$color-stone-opaque: #c4cfd5;
+
+// brand Secondary colors
+//  to be used for contrast, or if too complex
+$color-red-alpine-rose: #c31622;
+$color-green-grass: #9fc539;
+
+// Other brands
+$color-facebook-blue: #3b5998;
+$color-twitter-blue: #4099ff;
+$color-googleplus-red: #dd4b39;
+$color-rss-orange: #ff7900;
+
+// Other colors
+//$color-red-monza: #d0021b;
+//$color-green-lima: #7fae13;
+
+// Semitransparent and opaque colors
+//$color-white-opaque: rgba($color-white, 0.9);
+$color-transparent: rgba($color-white, 0);
+$color-fake-transparent: rgba($color-white, 0.01);
+$color-opaque-blue: rgba($color-blue-lake, 0.4);
+$color-opaque-black: rgba($color-black, 0.1);
+
+// Colour Schema
+$colour-schema-1-background: $color-white;
+$colour-schema-2-middleground: $color-travel-full-blue;
+$colour-schema-3-base: $color-travel-blue;
+$colour-schema-4-accent: $color-travel-dark-blue;
+$colour-schema-5-highlight: $color-travel-light;
+$colour-schema-6-foreground: $color-travel-light;
+
+// Layout Default colors
+$color-default: $colour-schema-3-base;
+$color-highlight: $colour-schema-5-highlight;
+
+// Legacy
+// Variables
+$color-theme-primary: $color-travel-blue;
+$color-theme-dark: $color-travel-blue;
+$color-fade-white: rgba($color-white, 0.8);
