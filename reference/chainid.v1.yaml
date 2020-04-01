@@ -6,7 +6,7 @@ info:
     name: ChainId
     url: Chainid.io
     email: indo@chainid.io
-  description: Data Model for the chain id project
+  description: Data Model for the chain id project 2
 servers:
   - url: api.chainid.io
 paths:
