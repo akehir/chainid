@@ -94,31 +94,40 @@ paths:
       description: "this activates the user by changing their status. \n\nThe user then needs to login"
   /profile:
     post:
-      summary: ''
+      summary: Profile
       operationId: post-profile
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  person:
+                    type: object
+                    required:
+                      - uuid
+                      - attributes
+                    properties:
+                      uuid:
+                        type: string
+                      attributes:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Attribute'
+                required:
+                  - person
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                person:
-                  type: object
-                  required:
-                    - attributes
-                    - uuid
-                  properties:
-                    attributes:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Attribute'
-                    uuid:
-                      type: string
+                uuid:
+                  type: string
               required:
-                - person
+                - uuid
   /attribute/insert:
     post:
       summary: 'Attribute: insert'
