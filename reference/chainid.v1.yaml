@@ -92,6 +92,128 @@ paths:
                 - uuid
                 - secretKey
       description: "this activates the user by changing their status. \n\nThe user then needs to login"
+  /profile:
+    post:
+      summary: ''
+      operationId: post-profile
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                person:
+                  type: object
+                  required:
+                    - attributes
+                    - uuid
+                  properties:
+                    attributes:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Attribute'
+                    uuid:
+                      type: string
+              required:
+                - person
+  /attribute/insert:
+    post:
+      summary: 'Attribute: insert'
+      operationId: post-attribute-insert
+      responses:
+        '200':
+          description: OK
+      description: xv
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                personUuid:
+                  type: object
+                  required:
+                    - uuid
+                  properties:
+                    uuid:
+                      type: string
+                attributeType:
+                  type: object
+                  required:
+                    - uuid
+                  properties:
+                    uuid:
+                      type: string
+                value:
+                  type: string
+              required:
+                - personUuid
+                - attributeType
+                - value
+  /attribute/update:
+    post:
+      summary: 'Attribute: update'
+      operationId: post-attribute-update
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                attributeType:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                  required:
+                    - uuid
+                personUuid:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                  required:
+                    - uuid
+                uuid:
+                  type: string
+  /attribute/delete:
+    post:
+      summary: Attribute delete
+      operationId: post-attribute-delete
+      responses:
+        '200':
+          description: OK
+      description: df
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+  /attributeType/list:
+    get:
+      summary: 'Attribute type:list'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttributeType'
+      operationId: get-attributeType-list
 components:
   schemas:
     User:
@@ -101,24 +223,24 @@ components:
       x-examples:
         example-1: {}
       properties:
-        id:
+        uuid:
           type: string
         person:
           $ref: '#/components/schemas/Person'
         email:
           type: string
       required:
-        - id
+        - uuid
         - email
     Person:
       title: Person
       type: object
+      description: The representation of an identity of an user.
       properties:
-        id:
+        uuid:
           type: string
       required:
-        - id
-      description: The representation of an identity of an user.
+        - uuid
     Attribute:
       title: Attribute
       type: object
