@@ -184,36 +184,6 @@ paths:
                     - uuid
                 uuid:
                   type: string
-  /attribute/delete:
-    post:
-      summary: Attribute delete
-      operationId: post-attribute-delete
-      responses:
-        '200':
-          description: OK
-      description: df
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-  /attributeType/list:
-    get:
-      summary: 'Attribute type:list'
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AttributeType'
-      operationId: get-attributeType-list
 components:
   schemas:
     User:

@@ -1,0 +1,7 @@
+.checkbox-template {
+  & + label {
+    &::after {
+      color: $color-travel-blue;
+    }
+  }
+}
