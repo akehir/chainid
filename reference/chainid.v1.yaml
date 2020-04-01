@@ -6,15 +6,100 @@ info:
     name: ChainId
     url: Chainid.io
     email: indo@chainid.io
-  description: ''
+  description: Data Model for the chain id project
 servers:
-  - url: 'http://localhost:3000'
-paths: {}
+  - url: api.chainid.io
+paths:
+  /login:
+    post:
+      summary: Login
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                required:
+                  - token
+      description: logs the user in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+  /signup:
+    post:
+      summary: Signup
+      operationId: post-signup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                required:
+                  - uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      description: |
+        if signup succesful, the user gets an email with an activation link
+  /login/activate:
+    post:
+      summary: Activates user
+      operationId: post-login-activate
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                secretKey:
+                  type: string
+              required:
+                - uuid
+                - secretKey
+      description: "this activates the user by changing their status. \n\nThe user then needs to login"
 components:
   schemas:
     User:
       title: User
       type: object
+      description: 'Any user of the system, including credentials.'
+      x-examples:
+        example-1: {}
       properties:
         id:
           type: string
@@ -22,23 +107,22 @@ components:
           $ref: '#/components/schemas/Person'
         email:
           type: string
-        '':
-          type: string
-      description: |
-        User and credentials
+      required:
+        - id
+        - email
     Person:
       title: Person
       type: object
       properties:
         id:
           type: string
-        logDateAdded:
-          type: string
-        '':
-          type: string
+      required:
+        - id
+      description: The representation of an identity of an user.
     Attribute:
       title: Attribute
       type: object
+      description: 'The attribute of a person. For instance, for the attribute type "name", the value would be "John".'
       properties:
         id:
           type: string
@@ -46,20 +130,16 @@ components:
           type: string
         attributeType:
           $ref: '#/components/schemas/AttributeType'
-        default:
-          type:
-            - boolean
-            - 'null'
         levelOfAssurance:
-          type: string
-          description: |-
-            See NIST standard on LOA.
-
-            Reverse process of the consent, where a "company" provides attributes of a specific level of assurance to a person.
-        levelOfAssuranceCompanyProfile:
-          $ref: '#/components/schemas/CompanyProfile'
-        '':
-          type: string
+          $ref: '#/components/schemas/LevelOfAssurance'
+        person:
+          $ref: '#/components/schemas/Person'
+      required:
+        - id
+        - value
+        - attributeType
+        - levelOfAssurance
+        - person
     AttributeType:
       title: AttributeType
       type: object
@@ -70,35 +150,56 @@ components:
           type: string
         description:
           type: string
-        '':
-          type: string
+      required:
+        - id
+        - label
+      description: 'The type of any given attribute, for instance "name", "dateOfBirth", etc.'
     Company:
-      title: Campany
+      title: Company
+      type: object
+      description: 'The participating company which can request information from persons through a data exchange. In OpenID context, also known as relying party / RP.'
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        vat:
+          type: string
+      required:
+        - id
+        - name
+    PersonCompany:
+      title: PersonCompany
       type: object
       properties:
         id:
           type: string
-    UserCompany:
-      title: UserCompany
-      type: object
-      properties:
-        id:
-          type: string
+        person:
+          $ref: '#/components/schemas/Person'
+        company:
+          $ref: '#/components/schemas/Company'
+      required:
+        - id
+        - person
+        - company
+      description: The identities linked to a specic company.
     CompanyProfile:
       title: CompanyProfile
       type: object
       description: |
-        Data requested by Company
+        Data requested by the company.
       properties:
         id:
           type: string
         company:
           $ref: '#/components/schemas/Company'
-        '':
-          type: string
+      required:
+        - id
+        - company
     DataXChange:
       title: DataXChange
       type: object
+      description: ''
       properties:
         id:
           type: string
@@ -109,15 +210,14 @@ components:
         logDateAdded:
           type: string
         expiryDate:
-          type:
-            - string
-            - 'null'
-        revokationDate:
-          type:
-            - string
-            - 'null'
-        '':
           type: string
+        revokationDate:
+          type: string
+      required:
+        - id
+        - person
+        - companyProfile
+        - logDateAdded
     AttributeDataXChange:
       title: AttributeDataXChange
       type: object
@@ -128,13 +228,18 @@ components:
           $ref: '#/components/schemas/DataXChange'
         attribute:
           $ref: '#/components/schemas/Attribute'
-        attributeProfileType:
-          $ref: '#/components/schemas/AttributeProfileType'
-        '':
-          type: string
-    AttributeProfileType:
-      title: AttributeProfileType
+        companyProfileAttributeType:
+          $ref: '#/components/schemas/CompanyProfileAttributeType'
+      required:
+        - id
+        - dataxchange
+        - attribute
+        - companyProfileAttributeType
+      description: What the user chooses to share from his/her attributes for a data exchange requested by any company by matching with the company profile.
+    CompanyProfileAttributeType:
+      title: CompanyProfileAttributeType
       type: object
+      description: The attribute type requested by a company for a (potential) data exchange.
       properties:
         id:
           type: string
@@ -143,7 +248,29 @@ components:
         attributeType:
           $ref: '#/components/schemas/AttributeType'
         isOptional:
+          type: boolean
+          description: ''
+        levelOfAssuranceRequired:
+          $ref: '#/components/schemas/LevelOfAssurance'
+      required:
+        - id
+        - profile
+        - attributeType
+        - isOptional
+        - levelOfAssuranceRequired
+    LevelOfAssurance:
+      title: LevelOfAssurance
+      type: object
+      properties:
+        id:
           type: integer
-          description: There is more than a binary case.
-        '':
+          description: ''
+        name:
           type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+      description: "The level of assurance being requested or provided. ID is an integer since it's an enum, and you can specify that you need at least a level of assurance of {x}, where higher provided LoA's would still be ok."
+  securitySchemes: {}
