@@ -9,7 +9,89 @@ info:
   description: Data Model for the chain id project
 servers:
   - url: api.chainid.io
-paths: {}
+paths:
+  /login:
+    post:
+      summary: Login
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                required:
+                  - token
+      description: logs the user in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+  /signup:
+    post:
+      summary: Signup
+      operationId: post-signup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                required:
+                  - uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      description: |
+        if signup succesful, the user gets an email with an activation link
+  /login/activate:
+    post:
+      summary: Activates user
+      operationId: post-login-activate
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                secretKey:
+                  type: string
+              required:
+                - uuid
+                - secretKey
+      description: "this activates the user by changing their status. \n\nThe user then needs to login"
 components:
   schemas:
     User:
